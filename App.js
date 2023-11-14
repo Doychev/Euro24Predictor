@@ -4,7 +4,11 @@ import { useFonts } from "expo-font";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
+import Splash from "./src/screens/Splash";
 import Login from "./src/screens/Login";
+import Registration from "./src/screens/Registration";
+import Login from "./src/screens/Login";
+import ForgotPassword from "./src/screens/ForgotPassword";
 
 const stackScreenOptions = {
   headerShown: false,
@@ -22,8 +26,10 @@ const Stack = createStackNavigator();
 function GetStackNavigator() {
   return (
     <Stack.Navigator screenOptions={stackScreenOptions}>
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Login" component={Login} />
-      {/* <Stack.Screen name="Login" component={Login} /> */}
+      <Stack.Screen name="Registration" component={Registration} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );
 }
@@ -43,7 +49,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Splash"
         screenOptions={generalScreenOptions}
         backBehavior="history"
       >

@@ -1,15 +1,16 @@
 import React from "react";
 import { SafeAreaView, Text } from "react-native";
 import { globalStyles } from "../globalStyles";
+import { supabase } from "../initSupabase";
 
-export default function Login() {
+export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const login = async () => {
+  const register = async () => {
     setLoading(true);
-    const { user, error } = await supabase.auth.signIn({
+    const { user, error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
@@ -25,7 +26,7 @@ export default function Login() {
 
   return (
     <SafeAreaView style={globalStyles.container}>
-      <Text>test</Text>
+      <Text>Registration</Text>
     </SafeAreaView>
   );
 }
