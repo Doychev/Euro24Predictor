@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SafeAreaView } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../globalStyles";
 
 export default function Splash({ navigation }) {
@@ -10,9 +10,18 @@ export default function Splash({ navigation }) {
   }, []);
 
   return (
-    <SafeAreaView style={globalStyles.container}>
-      {/* something to act as a splash screen */}
-      <Image source={require("../../assets/splash_illu.png")} />
-    </SafeAreaView>
+    <View style={globalStyles.container}>
+      <Image
+        style={styles.splashImage}
+        resizeMode="contain"
+        source={require("../../assets/splash_illu.png")}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  splashImage: {
+    width: "100%",
+  },
+});

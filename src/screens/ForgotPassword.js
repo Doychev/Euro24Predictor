@@ -1,11 +1,26 @@
 import React from "react";
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { globalStyles } from "../globalStyles";
 
-export default function ForgotPassword() {
+export default function ForgotPassword({ navigation }) {
   return (
     <SafeAreaView style={globalStyles.container}>
-      <Text>ForgotPassword</Text>
+      <Text>Forgot Pass</Text>
+      <Text style={styles.temp} onPress={() => navigation.navigate("Login")}>
+        Login
+      </Text>
+      <Text
+        style={styles.temp}
+        onPress={() => navigation.navigate("Registration")}
+      >
+        Registration
+      </Text>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  temp: {
+    marginVertical: 16,
+  },
+});
