@@ -9,10 +9,11 @@ import {
 import { Colors, globalStyles } from "../globalStyles";
 import { Button, Input } from "react-native-elements";
 import { supabase } from "../initSupabase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("martin.doychev.93@gmail.com");
+  const [password, setPassword] = useState("admin123");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
@@ -30,7 +31,10 @@ export default function Login({ navigation }) {
         console.warn(error.message);
       } else {
         //store this in async
-        //clean backstack
+        await AsyncStorage.setItem("session", JSON.stringify(data.session));
+        await AsyncStorage.setItem("user", JSON.stringify(data.user));
+        //TODO: clean backstack
+        setLoading(false);
         navigation.navigate("Home");
       }
     } catch (e) {

@@ -9,6 +9,9 @@ import Login from "./src/screens/Login";
 import Registration from "./src/screens/Registration";
 import ForgotPassword from "./src/screens/ForgotPassword";
 import Home from "./src/screens/Home";
+import Options from "./src/screens/Options";
+import About from "./src/screens/About";
+import CreateLeague from "./src/screens/CreateLeague";
 
 const stackScreenOptions = {
   headerShown: false,
@@ -31,6 +34,9 @@ function GetStackNavigator() {
       <Stack.Screen name="Registration" component={Registration} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Options" component={Options} />
+      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="CreateLeague" component={CreateLeague} />
     </Stack.Navigator>
   );
 }
