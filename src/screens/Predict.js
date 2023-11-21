@@ -10,6 +10,8 @@ import { Colors, globalStyles } from "../globalStyles";
 import Header from "../components/Header";
 import { supabase } from "../initSupabase";
 import { Button, Input } from "react-native-elements";
+import moment from "moment";
+import { logNicely } from "../util/LoggingUtil";
 
 export default function Predict({ navigation, route }) {
   const {
@@ -17,8 +19,10 @@ export default function Predict({ navigation, route }) {
   } = route;
   const [loading, setLoading] = useState(true);
   const [userPrediction, setUserPrediction] = useState(null);
-  const [score1, setScore1] = useState(0);
-  const [score2, setScore2] = useState(0);
+  const [score1, setScore1] = useState("0");
+  const [score2, setScore2] = useState("0");
+
+  const gameStarted = moment(game.start_time).isBefore(moment());
 
   useEffect(() => {
     const fetchPredictions = async () => {
@@ -30,7 +34,11 @@ export default function Predict({ navigation, route }) {
         .select()
         .eq("userId", user.id)
         .eq("gameId", game.id);
-      if (data.length) setUserPrediction(data[0]);
+      if (data.length) {
+        setUserPrediction(data[0]);
+        setScore1(data[0].result1.toString());
+        setScore2(data[0].result2.toString());
+      }
       setLoading(false);
     };
     fetchPredictions();
@@ -66,7 +74,12 @@ export default function Predict({ navigation, route }) {
         </View>
       ) : null}
       <Header />
-      {userPrediction ? <Text>You already predicted this game.</Text> : null}
+      {userPrediction ? (
+        <Text>
+          You prediction is recorded: {userPrediction.result1} -{" "}
+          {userPrediction.result2}
+        </Text>
+      ) : null}
       <Input
         value={score1}
         onChangeText={setScore1}
@@ -79,9 +92,17 @@ export default function Predict({ navigation, route }) {
         placeholder="Team1 score"
         keyboardType="number-pad"
       />
+      {}
       <Button
         onPress={handleSubmit}
-        title={userPrediction ? "Edit" : "Submit"}
+        title={
+          gameStarted
+            ? "Game already started"
+            : userPrediction
+            ? "Edit"
+            : "Submit"
+        }
+        disabled={gameStarted}
       />
     </SafeAreaView>
   );
