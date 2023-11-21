@@ -12,6 +12,8 @@ import Home from "./src/screens/Home";
 import Options from "./src/screens/Options";
 import About from "./src/screens/About";
 import CreateLeague from "./src/screens/CreateLeague";
+import Games from "./src/screens/Games";
+import Predict from "./src/screens/Predict";
 
 const stackScreenOptions = {
   headerShown: false,
@@ -37,6 +39,8 @@ function GetStackNavigator() {
       <Stack.Screen name="Options" component={Options} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="CreateLeague" component={CreateLeague} />
+      <Stack.Screen name="Games" component={Games} />
+      <Stack.Screen name="Predict" component={Predict} />
     </Stack.Navigator>
   );
 }

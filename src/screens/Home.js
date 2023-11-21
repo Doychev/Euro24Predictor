@@ -21,7 +21,7 @@ export default function Home({ navigation }) {
       const { data: profiles } = await supabase
         .from("UserProfiles")
         .select()
-        .eq("userUid", user.id);
+        .eq("userId", user.id);
       if (!profiles.length) {
         let result = await supabase
           .from("UserProfiles")
@@ -43,6 +43,10 @@ export default function Home({ navigation }) {
     navigation.navigate("CreateLeague");
   };
 
+  const onPressGames = () => {
+    navigation.navigate("Games");
+  };
+
   return (
     <SafeAreaView style={globalStyles.container}>
       {loading ? (
@@ -55,6 +59,9 @@ export default function Home({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity onPress={onPressCreate}>
         <Text>Create League</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onPressGames}>
+        <Text>View Games</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
