@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../globalStyles";
 import { supabase } from "../initSupabase";
-import { logNicely } from "../util/LoggingUtil";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Splash({ navigation }) {
@@ -13,10 +12,15 @@ export default function Splash({ navigation }) {
       if (session) {
         session = JSON.parse(session);
         if (session.refresh_token) {
-          const { data, error } = await supabase.auth.refreshSession(
-            session.refresh_token
-          );
-          if (error) {
+          const { data, error } = await supabase.auth.refreshSession({
+            refresh_token: session.refresh_token,
+          });
+          if (data) {
+            await AsyncStorage.setItem("session", JSON.stringify(data.session));
+            await AsyncStorage.setItem("user", JSON.stringify(data.user));
+            //TODO: clean backstack
+            navigation.navigate("Home");
+          } else {
             navigation.navigate("Login");
           }
         }

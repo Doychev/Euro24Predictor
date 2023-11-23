@@ -10,6 +10,7 @@ import {
 import { Colors, globalStyles } from "../globalStyles";
 import { supabase } from "../initSupabase";
 import { logNicely } from "../util/LoggingUtil";
+import Header from "../components/Header";
 
 export default function Home({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -23,28 +24,21 @@ export default function Home({ navigation }) {
         .select()
         .eq("userId", user.id);
       if (!profiles.length) {
-        let result = await supabase
-          .from("UserProfiles")
-          .insert({
-            userUid: user.id,
-            allowedToCreateLeagues: false,
-          })
-          .select();
+        await supabase.from("UserProfiles").insert({
+          userUid: user.id,
+          allowedToCreateLeagues: false,
+        });
       }
     };
     checkForProfile();
   }, []);
 
-  const onPressOptions = () => {
-    navigation.navigate("Options");
-  };
-
-  const onPressCreate = () => {
-    navigation.navigate("CreateLeague");
-  };
-
   const onPressGames = () => {
     navigation.navigate("Games");
+  };
+
+  const onPressLeagues = () => {
+    navigation.navigate("Leagues");
   };
 
   return (
@@ -54,14 +48,12 @@ export default function Home({ navigation }) {
           <ActivityIndicator size="large" color={Colors.Secondary} />
         </View>
       ) : null}
-      <TouchableOpacity onPress={onPressOptions}>
-        <Text>Options</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={onPressCreate}>
-        <Text>Create League</Text>
-      </TouchableOpacity>
+      <Header />
       <TouchableOpacity onPress={onPressGames}>
-        <Text>View Games</Text>
+        <Text>Schedule</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onPressLeagues}>
+        <Text>Leagues</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

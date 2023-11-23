@@ -37,7 +37,7 @@ export default function Games({ navigation }) {
           <ActivityIndicator size="large" color={Colors.Secondary} />
         </View>
       ) : null}
-      <Header />
+      <Header hasBack title="Schedule" />
       {games.map((game) => (
         <TouchableOpacity
           key={"game" + game.id}

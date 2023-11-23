@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { Colors, globalStyles } from "../globalStyles";
-import { Button, Input } from "react-native-elements";
+import { Button, Input } from "@rneui/themed";
 import { supabase } from "../initSupabase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

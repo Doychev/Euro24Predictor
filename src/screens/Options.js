@@ -40,7 +40,7 @@ export default function Options({ navigation }) {
           <ActivityIndicator size="large" color={Colors.Secondary} />
         </View>
       ) : null}
-      <Header />
+      <Header hasBack title="Options" />
       <TouchableOpacity onPress={onPressLogout}>
         <Text>Log Out</Text>
       </TouchableOpacity>

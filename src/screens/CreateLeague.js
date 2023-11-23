@@ -9,6 +9,7 @@ import {
 import { Colors, globalStyles } from "../globalStyles";
 import Header from "../components/Header";
 import { supabase } from "../initSupabase";
+import { logNicely } from "../util/LoggingUtil";
 
 export default function CreateLeague({ navigation }) {
   const [initialLoading, setInitialLoading] = useState(true);
@@ -22,9 +23,9 @@ export default function CreateLeague({ navigation }) {
       const { data: profiles } = await supabase
         .from("UserProfiles")
         .select()
-        .eq("userUid", user.id);
-      if (profiles.length) {
-        setAllowedToCreate(true);
+        .eq("userId", user.id);
+      if (profiles?.length) {
+        setAllowedToCreate(profiles[0].allowedToCreateLeagues);
       }
       setInitialLoading(false);
     };
@@ -38,10 +39,10 @@ export default function CreateLeague({ navigation }) {
           <ActivityIndicator size="large" color={Colors.Secondary} />
         </View>
       ) : null}
-      <Header />
+      <Header hasBack title="Create a league" />
       {allowedToCreate ? <Text>Allowed</Text> : null}
       {!allowedToCreate && !initialLoading ? (
-        <Text style={globalStyles.headline}>
+        <Text style={[globalStyles.negativeText, styles.warning]}>
           You are not allowed to create new leagues. Please contact the
           administrators to be granted access.
         </Text>
@@ -51,7 +52,8 @@ export default function CreateLeague({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  something: {
-    width: 1,
+  warning: {
+    padding: 10,
+    textAlign: "center",
   },
 });

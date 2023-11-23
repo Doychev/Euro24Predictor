@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export const Colors = {
   Secondary: "#FF4500",
   Primary: "#167E8B",
+  Blue: "#125C81",
   Gray: "#ADAAA8",
   GrayTransparent: "#ADAAA866",
 };
@@ -18,6 +19,11 @@ export const globalStyles = StyleSheet.create({
     fontSize: 24,
     color: Colors.Primary,
     // color: "white",
+  },
+  negativeText: {
+    fontFamily: "Montserrat-Bold",
+    fontSize: 14,
+    color: Colors.Secondary,
   },
   button: {
     backgroundColor: "#FF4500", // Button color

@@ -9,7 +9,7 @@ import {
 import { Colors, globalStyles } from "../globalStyles";
 import Header from "../components/Header";
 import { supabase } from "../initSupabase";
-import { Button, Input } from "react-native-elements";
+import { Button, Input } from "@rneui/themed";
 import moment from "moment";
 import { logNicely } from "../util/LoggingUtil";
 
@@ -73,7 +73,7 @@ export default function Predict({ navigation, route }) {
           <ActivityIndicator size="large" color={Colors.Secondary} />
         </View>
       ) : null}
-      <Header />
+      <Header hasBack title={game.team1 + " - " + game.team2} />
       {userPrediction ? (
         <Text>
           You prediction is recorded: {userPrediction.result1} -{" "}

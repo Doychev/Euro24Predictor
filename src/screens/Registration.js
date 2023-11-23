@@ -8,10 +8,11 @@ import {
 } from "react-native";
 import { Colors, globalStyles } from "../globalStyles";
 import { supabase } from "../initSupabase";
-import { Button, Input } from "react-native-elements";
+import { Button, Input } from "@rneui/themed";
 
 export default function Registration({ navigation }) {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +30,11 @@ export default function Registration({ navigation }) {
       setLoading(false);
       console.warn(error.message);
     }
-    console.warn(user);
+    await supabase.from("UserProfiles").insert({
+      userUid: user.id,
+      allowedToCreateLeagues: false,
+      username,
+    });
   };
 
   return (
@@ -50,6 +55,12 @@ export default function Registration({ navigation }) {
         onChangeText={setEmail}
         placeholder="Email"
         keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <Input
+        value={username}
+        onChangeText={setUsername}
+        placeholder="Username"
         autoCapitalize="none"
       />
       <Input
