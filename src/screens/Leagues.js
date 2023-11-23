@@ -11,6 +11,7 @@ import { Colors, globalStyles } from "../globalStyles";
 import { logNicely } from "../util/LoggingUtil";
 import { supabase } from "../initSupabase";
 import Header from "../components/Header";
+import { Button } from "@rneui/themed";
 
 export default function Leagues({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -71,8 +72,7 @@ export default function Leagues({ navigation }) {
         </View>
       ) : null}
       <Header hasBack title="Leagues" />
-      <Text>Leagues</Text>
-      {currentLeagues.length == 0 && (
+      {!loading && currentLeagues.length == 0 && (
         <Text>You haven't joined any leagues</Text>
       )}
       {currentLeagues.map((league) => (
@@ -92,7 +92,11 @@ export default function Leagues({ navigation }) {
         </>
       ))}
       {user?.allowedToCreateLeagues && (
-        <Text onPress={onCreateLeague}>Create a league</Text>
+        <Button
+          onPress={onCreateLeague}
+          title="Create a league"
+          style={globalStyles.buttonSizing}
+        />
       )}
     </SafeAreaView>
   );

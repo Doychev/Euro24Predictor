@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+const { width } = Dimensions.get("window");
 
 export const Colors = {
   Secondary: "#FF4500",
@@ -30,6 +31,11 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     alignItems: "center",
+  },
+  buttonSizing: {
+    alignSelf: "center",
+    width: width * 0.4,
+    marginVertical: 10,
   },
   buttonText: {
     fontFamily: "Montserrat-Bold",

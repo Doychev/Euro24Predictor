@@ -18,8 +18,10 @@ export default function Splash({ navigation }) {
           if (data) {
             await AsyncStorage.setItem("session", JSON.stringify(data.session));
             await AsyncStorage.setItem("user", JSON.stringify(data.user));
-            //TODO: clean backstack
-            navigation.navigate("Home");
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+            });
           } else {
             navigation.navigate("Login");
           }

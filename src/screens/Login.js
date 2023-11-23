@@ -10,6 +10,7 @@ import { Colors, globalStyles } from "../globalStyles";
 import { Button, Input } from "@rneui/themed";
 import { supabase } from "../initSupabase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "../components/Header";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("martin.doychev.93@gmail.com");
@@ -33,9 +34,11 @@ export default function Login({ navigation }) {
         //store this in async
         await AsyncStorage.setItem("session", JSON.stringify(data.session));
         await AsyncStorage.setItem("user", JSON.stringify(data.user));
-        //TODO: clean backstack
         setLoading(false);
-        navigation.navigate("Home");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
       }
     } catch (e) {
       setLoading(false);
@@ -45,7 +48,7 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={globalStyles.container}>
-      <Text>Login</Text>
+      <Header hideOptions />
       <Text
         style={styles.temp}
         onPress={() => navigation.navigate("Registration")}
@@ -72,7 +75,11 @@ export default function Login({ navigation }) {
         placeholder="Password"
         secureTextEntry={true}
       />
-      <Button onPress={handleLogin} title="Login" />
+      <Button
+        style={globalStyles.buttonSizing}
+        onPress={handleLogin}
+        title="Login"
+      />
 
       {loading ? (
         <View style={globalStyles.loadingOverlay}>

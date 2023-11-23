@@ -11,6 +11,7 @@ import { Colors, globalStyles } from "../globalStyles";
 import { supabase } from "../initSupabase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../components/Header";
+import { Button } from "@rneui/themed";
 
 export default function Options({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -41,18 +42,16 @@ export default function Options({ navigation }) {
         </View>
       ) : null}
       <Header hasBack title="Options" />
-      <TouchableOpacity onPress={onPressLogout}>
-        <Text>Log Out</Text>
-      </TouchableOpacity>
       <TouchableOpacity onPress={onPressAbout}>
         <Text>About</Text>
       </TouchableOpacity>
+      <Button
+        onPress={onPressLogout}
+        title={"Sign out"}
+        style={globalStyles.buttonSizing}
+      />
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  something: {
-    width: 1,
-  },
-});
+const styles = StyleSheet.create({});
